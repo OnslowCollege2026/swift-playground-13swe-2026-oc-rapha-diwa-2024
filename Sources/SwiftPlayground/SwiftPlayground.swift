@@ -7,20 +7,21 @@
 // These are the lunch costs for Monday to Friday.
 
 
-let lunches: [Double] = [6.50, 8.00, 5.75, 9.20, 7.10]
+let prices: [Double] = [6.50, 8.00, 5.75, 9.20, 7.10]
 let days: [String] = ["monday", "tuesday", "wednesday", "thursday", "friday"]
+
+var overBudget: Bool = false
+
+// Part 2 — Print Each Day’s Spending (for loop)
+
+// Use a for loop to print the lunch cost for each day.
+
 
 func printify() {
 
-    lunches.enumerated().forEach { index, cost in
-        print("Day \(index)")
+    prices.enumerated().forEach { index, cost in
+        print("\(days[index]) : $\(prices[index])" )
         }
-
-    // days.forEach { 
-    //     print(lunches) }
-    // // for day in days {
-    //     print("\(days[day]): $\(lunches)")
-    // }
 }
 
 
@@ -28,42 +29,27 @@ func printify() {
 printify()
 
 
-// Part 2 — Print Each Day’s Spending (for loop)
-
-// Use a for loop to print the lunch cost for each day.
-
-func totalCost(prices: [Double]) -> Double{
-    var totalPrice = 0.0 
-    for price in prices {
-
-    }
-}
-
-// Example output:
-
-// Day 1: $6.50
-
-// Day 2: $8.00
-
-// Day 3: $5.75
-
-// Day 4: $9.20
-
-// Day 5: $7.10
-
-
-
-
 
 // Part 3 — Functions
 
 // Write these functions:
 
-
-
 // Total Cost Function
 
-// func totalCost(prices: [Double]) -> Double
+
+func totalCost(prices: [Double]) -> Double{
+    
+    var totalPrice = 0.0 
+
+    for price in prices {
+            totalPrice += price
+    }
+    return totalPrice
+}
+
+let total = totalCost(prices: prices)
+
+print("Week total: $\(total)")
 
 
 
@@ -73,7 +59,12 @@ func totalCost(prices: [Double]) -> Double{
 
 // Budget Check Function
 
-// func isOverBudget(total: Double, budget: Double) -> Bool
+@MainActor func isOverBudget(total: Double, budget: Double) -> Bool{
+    if total >= budget {
+        overBudget = true
+    }
+    return overBudget
+}
 
 
 
@@ -83,7 +74,9 @@ func totalCost(prices: [Double]) -> Double{
 
 // Average Cost Function
 
-// func averageCost(prices: [Double]) -> Double
+func averageCost(prices: [Double]) -> Double {
+    
+}
 
 
 
@@ -99,7 +92,7 @@ func totalCost(prices: [Double]) -> Double{
 
 
 
-// let budget = 35.00
+let budget = 35.00
 
 
 

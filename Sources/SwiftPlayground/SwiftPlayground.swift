@@ -12,21 +12,29 @@ let days: [String] = ["monday", "tuesday", "wednesday", "thursday", "friday"]
 
 var overBudget: Bool = false
 
+let budget = 35.00
+
 // Part 2 — Print Each Day’s Spending (for loop)
 
 // Use a for loop to print the lunch cost for each day.
 
 
-func printify() {
+@MainActor func main() {
 
-    prices.enumerated().forEach { index, cost in
+    prices.enumerated().forEach { index, price in
         print("\(days[index]) : $\(prices[index])" )
+        
+        if price >= 9.0 {
+            print("High spending day 😫😫")
         }
+    }
+        let total = totalCost(prices: prices)
+            print("Week total: $\(total)")
+
 }
 
 
-
-printify()
+main()
 
 
 
@@ -35,6 +43,7 @@ printify()
 // Write these functions:
 
 // Total Cost Function
+
 
 
 func totalCost(prices: [Double]) -> Double{
@@ -47,9 +56,7 @@ func totalCost(prices: [Double]) -> Double{
     return totalPrice
 }
 
-let total = totalCost(prices: prices)
 
-print("Week total: $\(total)")
 
 
 
@@ -74,9 +81,9 @@ print("Week total: $\(total)")
 
 // Average Cost Function
 
-func averageCost(prices: [Double]) -> Double {
+// func averageCost(prices: [Double]) -> Double {
     
-}
+// }
 
 
 
@@ -92,7 +99,7 @@ func averageCost(prices: [Double]) -> Double {
 
 
 
-let budget = 35.00
+
 
 
 
@@ -100,8 +107,17 @@ let budget = 35.00
 
 // If the student is under budget, print:You stayed within budget.
 // If the student is over budget, print:Warning: You overspent this week.
-// Part 5 — High Spending Day Check (if inside loop)
 
+@MainActor func budgetCheck() {
+    if overBudget == true {
+        print("Warning: You overspent this week.")
+    }
+    else {
+        print("You stayed within budget.")
+    }
+}
+
+// Part 5 — High Spending Day Check (if inside loop)
 
 
 // Inside your for loop, add this check:
@@ -113,11 +129,15 @@ let budget = 35.00
 
 // The student also buys snacks.
 
-
+var snackTotal: Double = 0.0
+let snackMax: Double = 10.0
+let snackCost: Double = 2.50
 
 // Write a while loop that keeps adding snacks until snack spending reaches at least $10.
-
-
+while snackTotal < snackMax {
+    snackTotal += snackCost    
+    print("\nSnack total : $\(snackTotal)")
+}
 
 // Rules:
 
@@ -141,13 +161,16 @@ let budget = 35.00
 
 // Part 7 — Final Summary Output
 
-
+var totalTotal: Double = total += snackTotal
 
 // At the end, print:
 
 // Weekly lunch total
+print("Lunch total: \(totalPrice)")
 // Weekly snack total
+print("Snack total: \(snackTotal)")
 // Combined total
+print("Combined total: \(totalTotal)")
 // Average daily lunch cost
 // Whether they stayed within budget
 // Example format:

@@ -15,9 +15,9 @@ struct SwiftPlayground {
         let totally = total.reduce(0) { return $0 + $1 }
 
         // Number of scores in the array.
-        var numOfScores = total.count
+        let numOfScores = total.count
 
         // Print total average.
-        print(totally/numOfScores) // Output: 15
+        print(totally/numOfScores) // Output: 77
     }
 }

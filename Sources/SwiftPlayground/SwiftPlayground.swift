@@ -1,69 +1,96 @@
 // The Swift Programming Language
 // https://docs.swift.org/swift-book
 
-struct Student {
-    let id: Int 
-    var name: String 
-    var age: Int 
-    let nsn: Int 
-    var email: String 
+
+struct Car {
+    let brand : String
+    let model : String
+    let year : Int
 
     func summary() -> String {
-        return """
-ID: \(id)
-Name: \(name)
-Age: \(age)
-NSN: \(nsn)
-Email: \(email)
-"""
+    return """
+    Brand: \(brand)
+    Model: \(model)
+    Year: \(year)
+    """
     }
 }
+
+struct BankAccount {
+    let balance : Double
+    let owner : String
+
+    func description() -> String {
+    return """
+    Kia Ora, 
+    \(owner) has $\(balance) in their account.
+    """
+    }
+}
+
+struct Rectangle {
+    let width: Double
+    let length: Double
+
+    func area() -> Double {
+        let bum = width * length 
+        return bum
+    }
+}
+
+/// Quest
+struct Quest {
+    let title : String
+    let difficulty: String
+    let reward: Int
+
+    /// Prints out badges.
+    func printBadge() {
+    print("\(difficulty) Quest - \(reward) XP".)
+    }
+}
+
 @main
 struct SwiftPlayground {
-    static func main() {
-            let students = [
-            Student(
-                id: 22893,
-                name: "rapha",
-                age: 16,
-                nsn: 0167340155,
-                email: "rapha.diwa@student.onslow.school.nz"
-            ),
-            Student(
-                id: 22410,
-                name: "John",
-                age: 17,
-                nsn: 0144009487,
-                email: "john.quimpo@student.onslow.school.nz"
-            ),
-            Student(
-                id: 23445,
-                name: "ralph",
-                age: 15,
-                nsn: 0164265435,
-                email: "ralph.diwa@student.onslow.school.nz"
-            ),
-            Student(
-                id: 24233,
-                name: "raphlyn",
-                age: 13,
-                nsn: 0837298125,
-                email: "raphlyn.diwa@student.onslow.school.nz"
-            ),
-            Student(
-                id: 24483,
-                name: "Kartik",
-                age: 17,
-                nsn: 0154352595,
-                email: "kartik.uniyal@student.onslow.school.nz"
-            ),
-            ]
+    static func main() {\
+        // List of cars.
+        let cars = [
+            Car(
+                brand: "Suzuki",
+                model: "Swift",
+                year: 2020
+        ),
+            Car(
+                brand: "BMW",
+                model: "M5 sport",
+                year: 2009
+        ),
+        ]
 
-            let studentAgeIn10Years = students.map { "\($0.name) will be \($0.age + 10) in 10 years.."}
-            for agessssss in studentAgeIn10Years {
-                print(agessssss)
-            }
-            //print(students.summary())
+        // List of Bank accounts.
+        let accounts = [
+            BankAccount (balance: 0.67, owner: "rapha"),
+            BankAccount (balance: 100.00, owner: "mom")
+        ]
+
+        // List of rectangles
+        let rectangles = [
+            Rectangle (width: 5.0, length: 2.0),
+            Rectangle (width: 3.0, length: 7.0)
+        ]
+
+        // List of quests
+        let quests = [
+
+            Quest (title: "booty", difficulty: "easy", reward: 10),
+            Quest (title: "butt", difficulty: "medium", reward: 25),
+            Quest(title: "bum", difficulty: "hard", reward: 50)
+        ]
+
+            print(accounts.description())
+
+            printBadge()
+
     }    
 }
 

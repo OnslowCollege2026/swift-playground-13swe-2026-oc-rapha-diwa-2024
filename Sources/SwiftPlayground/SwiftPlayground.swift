@@ -46,13 +46,13 @@ struct Quest {
 
     /// Prints out badges.
     func printBadge() {
-    print("\(difficulty) Quest - \(reward) XP".)
+    print("\(difficulty) Quest - \(reward) XP")
     }
 }
 
 @main
 struct SwiftPlayground {
-    static func main() {\
+    static func main() {
         // List of cars.
         let cars = [
             Car(
@@ -87,10 +87,18 @@ struct SwiftPlayground {
             Quest(title: "bum", difficulty: "hard", reward: 50)
         ]
 
-            print(accounts.description())
+        for i in accounts {
+            print(i.description())
+        }
+            
 
-            printBadge()
-
+        for rec in rectangles {
+            print(rec.area())
+        }
+        for p in quests {
+            p.printBadge()
+        }
+            
     }    
 }
 

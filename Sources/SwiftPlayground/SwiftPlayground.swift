@@ -79,6 +79,14 @@ struct SwiftPlayground {
             Rectangle (width: 3.0, length: 7.0)
         ]
 
+
+        for rectangle in rectangles {        
+            var biggestRectangle = 0.0
+            if rectangle.area() >= biggestRectangle {
+                biggestRectangle = rectangle.area()
+            }
+        }
+
         // List of quests
         let quests = [
 
@@ -86,6 +94,11 @@ struct SwiftPlayground {
             Quest (title: "butt", difficulty: "medium", reward: 25),
             Quest(title: "bum", difficulty: "hard", reward: 50)
         ]
+
+
+        for car in cars {
+            print(car.summary())
+        }
 
         for i in accounts {
             print(i.description())
@@ -95,6 +108,9 @@ struct SwiftPlayground {
         for rec in rectangles {
             print(rec.area())
         }
+
+        print("Biggest rectatngle area is : \(biggestRectangle)")
+
         for p in quests {
             p.printBadge()
         }

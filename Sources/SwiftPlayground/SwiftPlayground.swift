@@ -2,7 +2,11 @@
 // https://docs.swift.org/swift-book
 @main
 struct feem {
-    static func main() {
+    static func main() 
+
+    // Task A
+    {
+    // TT
     let mixed = ["cat", "7", "owl", "15", "dog", "3"]
 
     let numbers = mixed.compactMap {Int($0)}
@@ -23,11 +27,12 @@ struct feem {
     }
 
     let extractedScores = sillySightings.map { $0.score}
-    let totalScore = extractedScores.reduce(0, +) // convention
+    let totalScore = extractedScores.reduce(0, +) // Convention for swift.
 
 
     let total = extractedScores.reduce(0) {return $0 + $1}
 
+    print(total)
 
     // Task C
     func accepts(_ input: String, isValid: (String) -> Bool) -> Bool {
@@ -65,22 +70,25 @@ struct feem {
             ]
         ]
 
-        let wing = archive.last { wing in
-        wing.contains { room in
-            room.contains {shelf in
-                shelf.contains { $0.hasPrefix("e") }
-                } 
+        // find wing
+if let wing = archive.last(where: { wing in
+            wing.contains { room in
+                room.contains { shelf in
+                    shelf.contains { $0.hasPrefix("e") }
+                }
             }
-        }!
-            let room = wing.last { room in
-                room.contains {shelf in
-                    shelf.contains { $0.count == 4 }
-                    } 
-            }!
-            let shelf = room.last {shelf in
-                shelf.contains { $0.contains("e") }
-                } 
-
-    print(numbers)
+        // Then get the room...
+        }), let room = wing.last(where: { room in
+            room.contains { shelf in
+                shelf.contains { $0.count == 4 }
+            }
+        // Then get the shelf...
+        }), let shelf = room.last(where: { shelf in
+            shelf.contains { $0.contains("e") }
+        // Then get the word!
+        }), let word = shelf.first(where: { $0.hasPrefix("e") }) {
+            print(word)
+        }
     }
 }
+

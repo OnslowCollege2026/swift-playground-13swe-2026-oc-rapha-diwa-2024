@@ -78,20 +78,16 @@ struct SwiftPlayground {
         try dbQueue.read { db in
             let schema = try db.dumpSchema()
             print(schema)
-        }
-        //     try dbQueue.read { database in
-        //         try database.dumpSchema()
 
-        //         // Find customer at window seat
-        //         let windowSitter = try Purchaser.find(database, key : [ 
-        //             "ReservedTable" : "Window Seat"
-        //         ])
-        //         print(windowSitter)
-        //     }
-
-            
+                    // Find customer at window seat
+                let windowSitter = try Purchaser.find(db, key : [ 
+                    "ReservedTable" : "Window Seat"
+                ])
+                print(windowSitter)
+            }
         } catch {
             print(error)
         }
+    
     }
 }

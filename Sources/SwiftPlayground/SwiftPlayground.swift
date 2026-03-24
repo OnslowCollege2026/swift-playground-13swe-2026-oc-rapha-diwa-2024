@@ -72,6 +72,9 @@ struct SwiftPlayground {
 
         let dbPath = "Sources/SwiftPlayground/cafe.db"
         
+                guard let dbQueue = try? DatabaseQueue(path: dbPath) else {
+            fatalError("Could not open database.")}
+            
         do {
             let dbQueue = try DatabaseQueue(path: dbPath)
             let purchaserIDs: [Int] = [3, 8]

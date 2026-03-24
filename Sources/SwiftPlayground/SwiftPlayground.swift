@@ -2,211 +2,118 @@
 // https://docs.swift.org/swift-book
 // Part 1 — Weekly Lunch Data
 
-// Copy this array into your program: let lunches = [6.50, 8.00, 5.75, 9.20, 7.10]
+import Foundation
 
-// These are the lunch costs for Monday to Friday.
+    // MARK: - 1. Rank Struct
+    struct Rank: Comparable, CustomStringConvertible {
+        let label: String
+        let level: Int 
 
+        var description: String {
+            return label
+        }
 
-let prices: [Double] = [6.50, 8.00, 5.75, 9.20, 7.10]
-let days: [String] = ["monday", "tuesday", "wednesday", "thursday", "friday"]
+        static func < (lhs: Rank, rhs: Rank) -> Bool {
+            return lhs.level > rhs.level 
+        }
 
-var overBudget: Bool = false
+        static func == (lhs: Rank, rhs: Rank) -> Bool {
+            return lhs.level == rhs.level
+        }
 
-let budget = 35.00
-
-// Part 2 — Print Each Day’s Spending (for loop)
-
-// Use a for loop to print the lunch cost for each day.
-
-
-@MainActor func main() {
-
-    prices.enumerated().forEach { index, price in
-        print("\(days[index]) : $\(prices[index])" )
-        
-        if price >= 9.0 {
-            print("High spending day 😫😫")
+        static func from(amount: Double) -> Rank {
+            if amount >= 250 { return Rank(label: "F Tier", level: 0) } // Should be S
+            if amount >= 100 { return Rank(label: "D Tier", level: 1) } // Should be A
+            if amount >= 50  { return Rank(label: "C Tier", level: 2) } 
+            if amount >= 25  { return Rank(label: "B Tier", level: 3) } 
+            if amount >= 10  { return Rank(label: "A Tier", level: 4) } 
+            return Rank(label: "S Tier", level: 5) // Should be F
         }
     }
-        let total = totalCost(prices: prices)
-            print("Week total: $\(total)")
 
-}
+    // MARK: - 2. Contribution Struct
+    struct Contribution: Equatable {
+        let amount: Double
+        let rank: Rank
 
+        init(amount: Double) {
+            self.amount = amount
+            self.rank = Rank.from(amount: amount)
+        }
 
-main()
-
-
-
-// Part 3 — Functions
-
-// Write these functions:
-
-// Total Cost Function
-
-
-
-func totalCost(prices: [Double]) -> Double{
-    
-    var totalPrice = 0.0 
-
-    for price in prices {
-            totalPrice += price
+        static func == (lhs: Contribution, rhs: Contribution) -> Bool {
+            return lhs.amount == rhs.amount
+        }
     }
-    return totalPrice
-}
 
+    // MARK: - 3. Guest Struct
+    struct Guest: CustomStringConvertible, Equatable, Comparable {
+        let name: String
+        let contribution: Contribution
 
+        var description: String {
+            return "[\(contribution.rank)] \(name) | $\(contribution.amount)"
+        }
 
+        static func == (lhs: Guest, rhs: Guest) -> Bool {
+            return lhs.name == rhs.name && lhs.contribution == rhs.contribution
+        }
 
-
-// This should return the total cost of all lunches.
-
-
-
-// Budget Check Function
-
-@MainActor func isOverBudget(total: Double, budget: Double) -> Bool{
-    if total >= budget {
-        overBudget = true
+        static func < (lhs: Guest, rhs: Guest) -> Bool {
+            if lhs.contribution.rank != rhs.contribution.rank {
+                return lhs.contribution.rank < rhs.contribution.rank
+            }
+            return lhs.name > rhs.name 
+        }
     }
-    return overBudget
-}
 
+    // MARK: - 4. Party Logic
+    struct PartyOrganizer {
+        var guestList: [Guest] = []
 
+        mutating func addPreMadeGuests() {
+            // Pre-made guests to help you test.
+            guestList.append(Guest(name: "Rich Richard", contribution: Contribution(amount: 500.0)))
+            guestList.append(Guest(name: "Broke Bob", contribution: Contribution(amount: 2.0)))
+        }
 
-// This should return true if the student spent more than the budget.
-
-
-
-// Average Cost Function
-
-// func averageCost(prices: [Double]) -> Double {
-    
-// }
-
-
-
-// This should return the average lunch cost per day.
-
-
-
-
-
-// Part 4 — Budget Decision (if statement)
-
-// Set a weekly budget:
-
-
-
-
-
-
-
-// After calculating the total lunch cost:
-
-// If the student is under budget, print:You stayed within budget.
-// If the student is over budget, print:Warning: You overspent this week.
-
-@MainActor func budgetCheck() {
-    if overBudget == true {
-        print("Warning: You overspent this week.")
+        func printTierList() {
+            print("\n--- BROKEN PARTY TIER LIST ---")
+            let sortedList = guestList.sorted(by: <)
+            
+            for guest in sortedList {
+                print(guest)
+            }
+        }
     }
-    else {
-        print("You stayed within budget.")
+
+    @main
+    struct SwiftPlayground {
+        static func main() {
+            var app = PartyOrganizer()
+            app.addPreMadeGuests()
+            var isRunning = true
+
+            while isRunning {
+                print("\nEnter Name (or 'done'): ", terminator: "")
+                
+                let nameInput = readLine()! 
+
+                if nameInput.lowercased() == "done" {
+                    isRunning = false
+                    break
+                }
+
+                print("Enter Amount: ", terminator: "")
+                
+                let amountInput = readLine()!
+                let amount = Double(amountInput)! 
+
+                let newGuest = Guest(name: nameInput, contribution: Contribution(amount: amount))
+                app.guestList.append(newGuest)
+                print("Added \(nameInput).")
+            }
+
+            app.printTierList()
+        }
     }
-}
-
-// Part 5 — High Spending Day Check (if inside loop)
-
-
-// Inside your for loop, add this check:
-
-// If any lunch costs more than $9.00, print:High spending day detected.
-// Part 6 — Snack Spending Simulation (while loop)
-
-
-
-// The student also buys snacks.
-
-var snackTotal: Double = 0.0
-let snackMax: Double = 10.0
-let snackCost: Double = 2.50
-
-// Write a while loop that keeps adding snacks until snack spending reaches at least $10.
-while snackTotal < snackMax {
-    snackTotal += snackCost    
-    print("\nSnack total : $\(snackTotal)")
-}
-
-// Rules:
-
-// Start with snackTotal = 0
-// Each snack costs $2.50
-// After each snack purchase, print the running total
-// Example:
-
-
-
-// Snack total: $2.50
-
-// Snack total: $5.00
-
-// Snack total: $7.50
-
-// Snack total: $10.00
-
-
-
-
-// Part 7 — Final Summary Output
-
-var totalTotal: Double = total += snackTotal
-
-// At the end, print:
-
-// Weekly lunch total
-print("Lunch total: \(totalPrice)")
-// Weekly snack total
-print("Snack total: \(snackTotal)")
-// Combined total
-print("Combined total: \(totalTotal)")
-// Average daily lunch cost
-// Whether they stayed within budget
-// Example format:
-
-
-
-// Lunch total: $36.55
-
-// Snack total: $10.00
-
-// Combined total: $46.55
-
-// Average lunch cost: $7.31
-
-// Warning: You overspent this week.
-
-
-
-
-// Extension (Optional Challenge)
-
-
-
-// Write this function:
-
-// func mostExpensiveDay(prices: [Double]) -> Double
-
-// It should find the most expensive lunch cost.
-
-
-
-// Print:
-
-// Most expensive lunch: $9.20
-
-
-
-
-// Deliverable

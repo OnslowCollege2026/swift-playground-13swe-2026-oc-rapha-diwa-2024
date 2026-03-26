@@ -22,12 +22,12 @@ import Foundation
         }
 
         static func from(amount: Double) -> Rank {
-            if amount >= 250 { return Rank(label: "F Tier", level: 0) } // Should be S
-            if amount >= 100 { return Rank(label: "D Tier", level: 1) } // Should be A
-            if amount >= 50  { return Rank(label: "C Tier", level: 2) } 
-            if amount >= 25  { return Rank(label: "B Tier", level: 3) } 
-            if amount >= 10  { return Rank(label: "A Tier", level: 4) } 
-            return Rank(label: "S Tier", level: 5) // Should be F
+            if amount >= 250 { return Rank(label: "S Tier", level: 5) } // Should be S
+            if amount >= 100 { return Rank(label: "A Tier", level: 4) } // Should be A
+            if amount >= 50  { return Rank(label: "B Tier", level: 3) } 
+            if amount >= 25  { return Rank(label: "C Tier", level: 2) } 
+            if amount >= 10  { return Rank(label: "D Tier", level: 1) } 
+            return Rank(label: "F Tier", level: 0) // Should be F
         }
     }
 
@@ -97,21 +97,26 @@ import Foundation
             while isRunning {
                 print("\nEnter Name (or 'done'): ", terminator: "")
                 
-                let nameInput = readLine()! 
+                if let nameInput = readLine(), let name = String(nameInput) {
+                } else {
+                    print("Invalid name")
+                }
 
-                if nameInput.lowercased() == "done" {
+                if name.lowercased() == "done" {
                     isRunning = false
                     break
                 }
 
                 print("Enter Amount: ", terminator: "")
                 
-                let amountInput = readLine()!
-                let amount = Double(amountInput)! 
+                if let amountInput = readLine(), let amount = Double(amountInput) {
 
-                let newGuest = Guest(name: nameInput, contribution: Contribution(amount: amount))
+                let newGuest = Guest(name: name, contribution: Contribution(amount: amount))
                 app.guestList.append(newGuest)
-                print("Added \(nameInput).")
+                print("Added \(name).") 
+                } else{
+                    print("Invalid amount")
+                }
             }
 
             app.printTierList()

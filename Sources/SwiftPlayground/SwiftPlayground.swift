@@ -6,7 +6,7 @@
 import Foundation
 import GRDB
 
-
+/// people borrowing.
 struct Borrower : Identifiable, Codable,  FetchableRecord, PersistableRecord {
 
 let id: Int
@@ -15,17 +15,20 @@ let lastName: String
 let emailAddress: String
 
 }
-
-struct Item {
+/// Items to be borrowed
+struct Book : Identifiable, Codable, FetchableRecord, PersistableRecord {
 
 let id: Int
-let itemName: String
-let itemNum: Int
+let title: String
+let code: Int
+let author: String
 }
 
+/// 
 struct Loan {
 let id: Int
-let date: String
+let dateBorrowed: String
+let dateDue: Int
 
 }
 
@@ -40,7 +43,12 @@ struct feem {
         do{
             let dbQueue = try DatabaseQueue(path: dbPath)
             
-            try dbQueue
-        }
-    }
-}
+            try dbQueue.read { db in
+                let schema = db.dumpSchema()
+                print(schema)
+                }
+            }catch{
+            print(error)
+        } // end of do
+    }// end of main
+} 

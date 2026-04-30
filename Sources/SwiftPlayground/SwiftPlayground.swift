@@ -32,10 +32,7 @@ let dateDue: Int
 
 }
 
-@main
-struct feem {
-    static func main() {
-
+func butt(){
         let dbPath = "Sources/SwiftPlayground/database.db"
 
             guard let dbQueue = try? DatabaseQueue(path: dbPath) else {
@@ -43,12 +40,86 @@ struct feem {
         do{
             let dbQueue = try DatabaseQueue(path: dbPath)
             
-            try dbQueue.read { db in
-                let schema = db.dumpSchema()
-                print(schema)
-                }
+            // try dbQueue.read { db in
+            //     let schema = try db.dumpSchema()
+            //     print(schema)
+            //     }
             }catch{
             print(error)
         } // end of do
+}
+
+//FUNCTIONS
+
+/// Function that
+/// 
+
+func menu() {
+
+print("""
+LIBARY
+==========
+
+A. VIEW BOOKS 
+B. LOAN BOOKS
+C.
+X. QUIT
+
+""")
+}
+
+
+/// FUNCTION THAT ALLOWS USER TO BORROW
+/// 
+/// 
+
+/// FUNCTION THAT ALLOWS USER TO SEARCH
+/// 
+
+// func searchBook(){
+
+//     try dbQueue.read { db in
+//         let book = try Book.fetchOne(db, key: studentId)
+//         if let student {
+//             print("Found student: \(student.name)")
+//         } else {
+//             print("No student with id \(studentId)")
+//         }
+//     }
+// }
+
+
+/// FUNCTION THAT MAKES NEW BORROWER
+/// 
+/// 
+func addBorrower(in: dbQueue) {
+    try dbQueue.write { db in
+    // Insert new row
+    var newBorrower = Student(id: 67, firstName: "kar", lastName: "dih", emailAddress: "mgkatrikplays@gmail")
+    try newBorrower.insert(db)
+    }
+}
+
+/// FUnction to print bookies
+
+func printBooks() {
+    
+}
+
+///Function that gets user input
+func userInput(){
+
+
+}
+
+@main
+struct feem {
+    static func main() {
+
+
+
+
+    menu()
+    addBorrower()
     }// end of main
 } 

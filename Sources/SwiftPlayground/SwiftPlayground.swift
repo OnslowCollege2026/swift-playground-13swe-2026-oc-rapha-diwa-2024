@@ -14,6 +14,12 @@ let firstName: String
 let lastName: String
 let emailAddress: String
 
+enum CodingKeys: String, CodingKey {
+        case id = "Borrower ID"
+        case firstName = "First Name"
+        case lastName = "Last Name"
+        case emailAddress = "Email Address"
+    }
 }
 /// Items to be borrowed
 struct Book : Identifiable, Codable, FetchableRecord, PersistableRecord {
@@ -32,22 +38,6 @@ let dateDue: Int
 
 }
 
-func butt(){
-        let dbPath = "Sources/SwiftPlayground/database.db"
-
-            guard let dbQueue = try? DatabaseQueue(path: dbPath) else {
-                fatalError("Could not open database.")}
-        do{
-            let dbQueue = try DatabaseQueue(path: dbPath)
-            
-            // try dbQueue.read { db in
-            //     let schema = try db.dumpSchema()
-            //     print(schema)
-            //     }
-            }catch{
-            print(error)
-        } // end of do
-}
 
 //FUNCTIONS
 
@@ -80,7 +70,7 @@ X. QUIT
 
 //     try dbQueue.read { db in
 //         let book = try Book.fetchOne(db, key: studentId)
-//         if let student {
+//         if let book {
 //             print("Found student: \(student.name)")
 //         } else {
 //             print("No student with id \(studentId)")
@@ -95,7 +85,7 @@ X. QUIT
 func addBorrower(in: dbQueue) {
     try dbQueue.write { db in
     // Insert new row
-    var newBorrower = Student(id: 67, firstName: "kar", lastName: "dih", emailAddress: "mgkatrikplays@gmail")
+    var newBorrower = Borrower(id: 67, firstName: "kar", lastName: "dih", emailAddress: "mgkatrikplays@gmail")
     try newBorrower.insert(db)
     }
 }
@@ -115,11 +105,15 @@ func userInput(){
 @main
 struct feem {
     static func main() {
-
-
+        let dbPath = "Sources/SwiftPlayground/database.db"
+        guard let dbQueue = try? DatabaseQueue(path: dbPath) else {
+                fatalError("Could not open database.")}
+        do{
+            let dbQueue = try DatabaseQueue(path: dbPath)
 
 
     menu()
     addBorrower()
     }// end of main
 } 
+}

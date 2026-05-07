@@ -12,7 +12,7 @@ func clear() {
 }
 
 /// people borrowing.
-struct Borrower : Identifiable, Codable,  FetchableRecord, PersistableRecord {
+struct Borrower : Identifiable, Codable,  FetchableRecord, PersistableRecord, CustomStringConvertible {
 
 let id: Int
 let firstName: String
@@ -25,6 +25,14 @@ enum CodingKeys: String, CodingKey {
         case lastName = "Last Name"
         case emailAddress = "Email Address"
     }
+
+var description: String {
+    return """
+    ID: \(id)
+    Name: \(firstName) \(lastName)
+    Email Address: \(emailAddress)
+    """
+}
 }
 /// Items to be borrowed
 struct Book : Identifiable, Codable, FetchableRecord, PersistableRecord {
@@ -39,7 +47,7 @@ enum CodingKeys: String, CodingKey {
     case title
     case authorFirstName
     case authorLastName 
-
+}
 
 enum Columns {
         static let id = "Book ID"
@@ -47,8 +55,10 @@ enum Columns {
         static let authorFirstName = "Author F.name"
         static let authorLastName = "Author L.name"
     }
-}
 
+
+
+}
 
 /// 
 struct Loan {
@@ -64,13 +74,13 @@ let dateDue: Int
 /// Function that
 /// 
 
-func mainMenu() {
+func mainMenu(dbQueue:DatabaseQueue) {
 var inMainMenu = true
 while inMainMenu{
-clear()
+//clear()
 
 print("""
-LIBARY
+MELVIL DEWEY SIMULATOR
 ==========
 
 A. BOOKS
@@ -89,9 +99,11 @@ case "A":
 bookMenu()
 
 case "B":
-print("chose loan menu")
-case "c":
-print("chose borrowers menu")
+loanMenu()
+
+case "C":
+borrowerMenu(dbQueue: dbQueue)
+
 case "x":
 inMainMenu = false
 print("quited 💔")
@@ -142,7 +154,7 @@ print("ikeys")
 
 }
 
-func borrowerMenu() {
+func borrowerMenu(dbQueue: DatabaseQueue) {
 
 var inBorrowerMenu = true
 
@@ -155,6 +167,8 @@ BORROWERS
 2. Edit borrower record
 3. Register new borrower
 4. Delete borrower
+5. Show all borrowers
+X - back to main
 
 """)
 
@@ -171,13 +185,55 @@ case "2":
 print("edit")
 
 case "3":
+addBorrower(dbQueue: dbQueue)
 print("register")
 
 case "4":
 print("delete")
 
+case "5":
+printBorrowers(dbQueue: dbQueue)
+
 case "x":
 inBorrowerMenu = false
+print("back to main..")
+sleep(2)
+
+default:
+print("ikeys")
+}
+}
+
+func loanMenu() {
+
+var inLoanMenu = true
+
+print("""
+
+LOAN
+=======
+
+1. Loan book
+2. Return book
+x return ti main
+
+""")
+
+let buh = readLine()
+
+switch buh {
+
+
+case "1":
+print("Loan a book")
+
+
+case "2":
+print("Return a book")
+
+
+case "x":
+inLoanMenu = false
 print("back to main..")
 sleep(2)
 
@@ -226,6 +282,25 @@ func addBorrower(dbQueue: DatabaseQueue) {
     }
 }
 
+
+func printBorrowers(dbQueue: DatabaseQueue) {
+    do{
+        try dbQueue.read {db in
+            let allBorrowers =  try Borrower.fetchAll(db)
+        
+            for borrower in allBorrowers {
+                print(borrower)
+            }
+        
+        }
+
+    } catch {
+        print("keys")
+    }
+}
+
+
+
 /// FUnction to print bookies
 
 func printBooks() {
@@ -246,7 +321,7 @@ struct feem {
     do{
         let dbQueue = try DatabaseQueue(path: dbPath) 
                 
-                mainMenu()
+                mainMenu(dbQueue: dbQueue)
         } catch {
 
             print("keys now")

@@ -50,9 +50,8 @@ print("""
 LIBARY
 ==========
 
-A. VIEW BOOKS 
-B. LOAN BOOKS
-C.
+A. BOOKS
+C. 
 X. QUIT
 
 """)

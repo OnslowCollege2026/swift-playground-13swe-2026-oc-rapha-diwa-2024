@@ -44,8 +44,9 @@ let dateDue: Int
 /// Function that
 /// 
 
-func menu() {
-
+func mainMenu() {
+var running = true
+while running{
 print("""
 LIBARY
 ==========
@@ -56,7 +57,32 @@ C. BORROWERS
 X. QUIT
 
 """)
+
+let buh = readLine()
+
+switch buh {
+
+
+case "A":
+print("chose bookmenu")
+
+case "B":
+print("chose loan menu")
+case "c":
+print("chose borrowers menu")
+case "x":
+running = false
+print("quited 💔")
+
+default:
+print("ikeys")
 }
+
+
+}
+}
+
+
 
 
 /// FUNCTION THAT ALLOWS USER TO BORROW
@@ -82,11 +108,17 @@ X. QUIT
 /// FUNCTION THAT MAKES NEW BORROWER
 /// 
 /// 
-func addBorrower(in: dbQueue) {
-    try dbQueue.write { db in
-    // Insert new row
-    var newBorrower = Borrower(id: 67, firstName: "kar", lastName: "dih", emailAddress: "mgkatrikplays@gmail")
-    try newBorrower.insert(db)
+func addBorrower(dbQueue: DatabaseQueue) {
+    
+    do{
+
+        try dbQueue.write { db in
+        // Insert new row
+        let newBorrower = Borrower(id: 67, firstName: "kar", lastName: "dih", emailAddress: "mgkatrikplays@gmail")
+        try newBorrower.insert(db)
+        }
+    } catch {
+        print("keys")
     }
 }
 
@@ -106,14 +138,17 @@ func userInput(){
 struct feem {
     static func main() {
         let dbPath = "Sources/SwiftPlayground/database.db"
-        guard let dbQueue = try? DatabaseQueue(path: dbPath) else {
-                fatalError("Could not open database.")}
-        do{
-            let dbQueue = try DatabaseQueue(path: dbPath)
+        
+    do{
+        let dbQueue = try DatabaseQueue(path: dbPath) 
+                
+                mainMenu()
+        } catch {
 
+            print("keys now")
+            print(error)
+        }
 
-    menu()
-    addBorrower()
     }// end of main
-} 
+
 }

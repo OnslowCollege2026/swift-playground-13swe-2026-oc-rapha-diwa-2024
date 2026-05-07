@@ -244,26 +244,24 @@ print("ikeys")
 
 
 
-
-/// FUNCTION THAT ALLOWS USER TO BORROW
-/// 
-/// 
-
 /// FUNCTION THAT ALLOWS USER TO SEARCH
 /// 
 
-// func searchBook(){
+// func searchBook(dbQueue: DatabaseQueue){
+    
+// let bookId = readLine()
+//     do{
 
-//     try dbQueue.read { db in
-//         let book = try Book.fetchOne(db, key: studentId)
-//         if let book {
-//             print("Found student: \(student.name)")
-//         } else {
-//             print("No student with id \(studentId)")
+//         try dbQueue.read { db in
+//             let book = try Book.fetchOne(db, key: bookId)
+//             if let book {
+//                 print("Found book: \(book.name)")
+//             } else {
+//                 print("No student with id \(bookId)")
+//             }
 //         }
 //     }
 // }
-
 
 /// FUNCTION THAT MAKES NEW BORROWER
 /// 
@@ -307,11 +305,7 @@ func printBooks() {
     
 }
 
-///Function that gets user input
-func userInput(){
 
-
-}
 
 @main
 struct feem {

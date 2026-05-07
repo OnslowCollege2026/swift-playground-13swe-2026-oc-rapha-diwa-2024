@@ -51,7 +51,8 @@ LIBARY
 ==========
 
 A. BOOKS
-C. 
+B. LOANS
+C. BORROWERS
 X. QUIT
 
 """)

@@ -40,7 +40,7 @@ struct Borrower : Identifiable, Codable,  FetchableRecord, PersistableRecord, Cu
         }
 }
 
-/// Items to be borrowed
+/// Books to be borrowed
 struct Book : Identifiable, Codable, FetchableRecord, PersistableRecord {
 
 let id: Int
@@ -93,9 +93,9 @@ X. QUIT
 
 """)
 
-let buh = readLine()
+let option = readLine()
 
-switch buh {
+switch option {
 
 
 case "A":
@@ -134,9 +134,9 @@ BOOKS
 
 """)
 
-let buh = readLine()
+let option = readLine()
 
-switch buh {
+switch option {
 
 
 case "1":
@@ -175,9 +175,9 @@ X - back to main
 
 """)
 
-let buh = readLine()
+let option = readLine()
 
-switch buh {
+switch option {
 
 
 case "1":
@@ -222,9 +222,9 @@ x return ti main
 
 """)
 
-let buh = readLine()
+let option = readLine()
 
-switch buh {
+switch option {
 
 
 case "1":

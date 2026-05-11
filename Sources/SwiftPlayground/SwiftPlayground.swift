@@ -12,7 +12,7 @@ func clear() {
 }
 
 func userInput(ask: String) {
-    
+
 }
 
 
@@ -76,7 +76,7 @@ let dateDue: Int
 
 /// Function that
 /// 
-
+/// 
 func mainMenu(dbQueue:DatabaseQueue) {
 var inMainMenu = true
 while inMainMenu{

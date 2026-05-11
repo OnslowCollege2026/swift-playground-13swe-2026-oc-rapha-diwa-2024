@@ -11,29 +11,35 @@ func clear() {
     system("clear")
 }
 
+func userInput(ask: String) {
+    
+}
+
+
 /// people borrowing.
 struct Borrower : Identifiable, Codable,  FetchableRecord, PersistableRecord, CustomStringConvertible {
 
-let id: Int
-let firstName: String
-let lastName: String
-let emailAddress: String
+    let id: Int
+    let firstName: String
+    let lastName: String
+    let emailAddress: String
 
-enum CodingKeys: String, CodingKey {
-        case id = "Borrower ID"
-        case firstName = "First Name"
-        case lastName = "Last Name"
-        case emailAddress = "Email Address"
-    }
+    enum CodingKeys: String, CodingKey {
+            case id = "Borrower ID"
+            case firstName = "First Name"
+            case lastName = "Last Name"
+            case emailAddress = "Email Address"
+        }
 
-var description: String {
-    return """
-    ID: \(id)
-    Name: \(firstName) \(lastName)
-    Email Address: \(emailAddress)
-    """
+    var description: String {
+        return """
+        ID: \(id)
+        Name: \(firstName) \(lastName)
+        Email Address: \(emailAddress)
+        """
+        }
 }
-}
+
 /// Items to be borrowed
 struct Book : Identifiable, Codable, FetchableRecord, PersistableRecord {
 
@@ -55,9 +61,6 @@ enum Columns {
         static let authorFirstName = "Author F.name"
         static let authorLastName = "Author L.name"
     }
-
-
-
 }
 
 /// 
@@ -269,6 +272,7 @@ print("ikeys")
 func addBorrower(dbQueue: DatabaseQueue) {
     
     do{
+
 
         try dbQueue.write { db in
         // Insert new row

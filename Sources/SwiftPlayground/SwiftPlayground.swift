@@ -1,8 +1,8 @@
 // The Swift Programming Language
-// https://docs.swift.org/swift-book
+// https://docs.swift.org/swift-item
 
 // Made by raoha
-// 22.04.26
+// 24.06.26
 // Summative assessment
 import Foundation
 import GRDB
@@ -25,7 +25,7 @@ struct Borrower : Identifiable, Codable,  FetchableRecord, PersistableRecord, Cu
     let familyName: String
     let emailAddress: String
     let yearLevel: String
-    let 
+    let borrowerType: String
 
     enum CodingKeys: String, CodingKey {
             case id = "Borrower ID"
@@ -54,7 +54,7 @@ let itemCategory: String
 let itemCondition: String
 
 enum CodingKeys: String, CodingKey {
-    case id = "bookId"
+    case id = "itemId"
     case itemName
     case itemCategory
     case itemCondition
@@ -72,8 +72,22 @@ enum Columns {
 struct Loan {
 let id: Int
 let dateBorrowed: String
-let dateDue: Int
+let dateDue: String
+let dateReturned: String
 
+enum CodingKeys: String, CodingKey {
+    case id = "loanID"
+    case dateBorrowed
+    case dateDue
+    case dateReturned
+}
+
+enum Columns {
+        static let id = "Loan ID"
+        static let dateBorrowed = "Loan date"
+        static let dateDue = "Due date"
+        static let dateReturned = "Return date"
+    }
 }
 
 
@@ -91,7 +105,7 @@ print("""
 MELVIL DEWEY SIMULATOR
 ==========
 
-A. BOOKS
+A. ITEMS
 B. LOANS
 C. BORROWERS
 X. QUIT
@@ -104,7 +118,7 @@ switch option {
 
 
 case "A":
-bookMenu()
+itemMenu()
 
 case "B":
 loanMenu()
@@ -125,17 +139,17 @@ print("ikeys")
 }
 
 
-func bookMenu() {
+func itemMenu() {
 
-var inBookMenu = true
+var inItemMenu = true
 
 print("""
 
-BOOKS
+ITEMS
 =======
 
-1. See all books
-2. Search books
+1. See all items
+2. Search items
 
 """)
 
@@ -145,13 +159,13 @@ switch option {
 
 
 case "1":
-print("print all books")
+print("print all items")
 
 
 case "2":
-print("Search books")
+print("Search items")
 case "x":
-inBookMenu = false
+inItemMenu = false
 print("back to main..")
 sleep(2)
 
@@ -221,8 +235,8 @@ print("""
 LOAN
 =======
 
-1. Loan book
-2. Return book
+1. Loan item
+2. Return item
 x return ti main
 
 """)
@@ -233,11 +247,11 @@ switch option {
 
 
 case "1":
-print("Loan a book")
+print("Loan a item")
 
 
 case "2":
-print("Return a book")
+print("Return a item")
 
 
 case "x":
@@ -255,17 +269,17 @@ print("ikeys")
 /// FUNCTION THAT ALLOWS USER TO SEARCH
 /// 
 
-// func searchBook(dbQueue: DatabaseQueue){
+// func searchItem(dbQueue: DatabaseQueue){
     
-// let bookId = readLine()
+// let itemId = readLine()
 //     do{
 
 //         try dbQueue.read { db in
-//             let book = try Book.fetchOne(db, key: bookId)
-//             if let book {
-//                 print("Found book: \(book.name)")
+//             let item = try Item.fetchOne(db, key: itemId)
+//             if let item {
+//                 print("Found item: \(item.name)")
 //             } else {
-//                 print("No student with id \(bookId)")
+//                 print("No student with id \(itemId)")
 //             }
 //         }
 //     }
@@ -274,20 +288,20 @@ print("ikeys")
 /// FUNCTION THAT MAKES NEW BORROWER
 /// 
 /// 
-func addBorrower(dbQueue: DatabaseQueue) {
+// func addBorrower(dbQueue: DatabaseQueue) {
     
-    do{
+//     do{
 
 
-        try dbQueue.write { db in
-        // Insert new row
-        let newBorrower = Borrower(id: 67, firstName: "kar", lastName: "dih", emailAddress: "mgkatrikplays@gmail")
-        try newBorrower.insert(db)
-        }
-    } catch {
-        print("keys")
-    }
-}
+//         try dbQueue.write { db in
+//         // Insert new row
+//         let newBorrower = Borrower(id: 67, firstName: "kar", lastName: "dih", emailAddress: "mgkatrikplays@gmail")
+//         try newBorrower.insert(db)
+//         }
+//     } catch {
+//         print("keys")
+//     }
+// }
 
 
 func printBorrowers(dbQueue: DatabaseQueue) {
@@ -308,9 +322,9 @@ func printBorrowers(dbQueue: DatabaseQueue) {
 
 
 
-/// FUnction to print bookies
+/// FUnction to print itemies
 
-func printBooks() {
+func printItems() {
     
 }
 

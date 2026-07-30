@@ -2,4 +2,3 @@
 // https://docs.swift.org/swift-book
 // Currypot menu tablet.
 
-
